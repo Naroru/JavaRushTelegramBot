@@ -1,5 +1,5 @@
 ---
-name: JRTB project
+name: Custom
 about: JRTB project
 title: 'JRTB-№: DESCRIPTION'
 labels: ''
