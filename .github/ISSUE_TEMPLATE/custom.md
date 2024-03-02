@@ -1,10 +1,12 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: ''
+name: Custom
+about: JRTB project
+title: 'JRTB-№: DESCRIPTION'
 labels: ''
-assignees: romankh3
+assignees: Naroru
 
 ---
 
+**Decription**
 
+**Acceptance criteria:**
