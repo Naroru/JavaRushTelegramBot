@@ -1,4 +1,4 @@
-package com.github.Naroru.JavaRushTelegramBot.jrtb;
+package com.github.Naroru.JavaRushTelegramBot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
