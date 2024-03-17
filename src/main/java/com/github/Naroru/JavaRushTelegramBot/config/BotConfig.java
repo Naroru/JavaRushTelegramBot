@@ -1,4 +1,4 @@
-package com.github.Naroru.JavaRushTelegramBot.Config;
+package com.github.Naroru.JavaRushTelegramBot.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

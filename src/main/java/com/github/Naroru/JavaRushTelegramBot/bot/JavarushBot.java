@@ -1,5 +1,6 @@
 package com.github.Naroru.JavaRushTelegramBot.bot;
 
+import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -14,16 +15,10 @@ public class JavarushBot extends TelegramLongPollingBot {
     private String name;
 
 
-    public JavarushBot(String botToken) {
-        super(botToken);
-    }
-
-
     @Override
     public String getBotUsername() {
         return name;
     }
-
 
     @Override
     public void onUpdateReceived(Update update) {
