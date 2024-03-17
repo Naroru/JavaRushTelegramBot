@@ -8,18 +8,18 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 /**
  * Implementation of {@link SendMessageService} interface.
  */
-@Service
+
+
 public class SendMessageServiceImp implements SendMessageService{
 
     private final JavarushBot javarushBot;
-
 
     public SendMessageServiceImp(JavarushBot javarushBot) {
         this.javarushBot = javarushBot;
     }
 
     @Override
-    public void sendMessage(String message, String chatID) {
+    public void sendMessage(String chatID,String message) {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatID);

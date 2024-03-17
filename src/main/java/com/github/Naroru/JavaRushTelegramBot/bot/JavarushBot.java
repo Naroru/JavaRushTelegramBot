@@ -1,6 +1,12 @@
 package com.github.Naroru.JavaRushTelegramBot.bot;
 
+import com.github.Naroru.JavaRushTelegramBot.command.Command;
+import com.github.Naroru.JavaRushTelegramBot.command.CommandContainer;
+import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
+import com.github.Naroru.JavaRushTelegramBot.command.NoCommand;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
+import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -11,9 +17,16 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Component
 public class JavarushBot extends TelegramLongPollingBot {
 
+    private final String COMMAND_PREFIX = "/";
+    private final CommandContainer commandContainer;
     @Value("${bot.username}")
     private String name;
 
+
+    public JavarushBot(String botToken ) {
+        super(botToken);
+        this.commandContainer = new CommandContainer(new SendMessageServiceImp(this));
+    }
 
     @Override
     public String getBotUsername() {
@@ -22,20 +35,20 @@ public class JavarushBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+
         if(update.hasMessage() && update.getMessage().hasText()) {
+
             String message = update.getMessage().getText().trim();
-            String chatId = update.getMessage().getChatId().toString();
 
-            SendMessage sm = new SendMessage();
-            sm.setChatId(chatId);
-            sm.setText(message);
+            if(message.startsWith(COMMAND_PREFIX)) {
 
-            try {
-                execute(sm);
-            } catch (TelegramApiException e) {
-                //todo add logging to the project.
-                e.printStackTrace();
+                String commandIdentifier = message.split(" ")[0].toLowerCase();
+                Command command = commandContainer.getCommand(commandIdentifier);
+                command.execute(update);
+
             }
+            else
+                commandContainer.getCommand(CommandName.NO.getCommandName()).execute(update);
         }
     }
 

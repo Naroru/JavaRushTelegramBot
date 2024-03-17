@@ -3,7 +3,10 @@ package com.github.Naroru.JavaRushTelegramBot.command;
 public enum CommandName {
 
     START("/start"),
-    STOP("/stop");
+    STOP("/stop"),
+    NO(""),
+    HELP("/help");
+
 
     private final String commandName;
 
