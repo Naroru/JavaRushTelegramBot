@@ -1,9 +1,10 @@
 package com.github.Naroru.JavaRushTelegramBot.command;
 
-import com.github.Naroru.JavaRushTelegramBot.bot.JavarushBot;
+import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.HelpCommand;
+import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.StartCommand;
+import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.StopCommand;
+import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
-import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;

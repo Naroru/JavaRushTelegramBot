@@ -1,11 +1,12 @@
-package com.github.Naroru.JavaRushTelegramBot.command;
+package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
+import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static com.github.Naroru.JavaRushTelegramBot.command.CommandName.*;
 
-public class HelpCommand implements Command{
+public class HelpCommand implements Command {
 
     private final SendMessageService sendMessageService;
 
