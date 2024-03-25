@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class UnknowCommand implements Command {
 
-    private final  String UNKNOW_MESSAGE = "Данная команда не распознана. Используйте /help для получения списка" +
+    public static final   String UNKNOW_MESSAGE = "Данная команда не распознана. Используйте /help для получения списка" +
             " доступных команд";
     private final SendMessageService sendMessageService;
 

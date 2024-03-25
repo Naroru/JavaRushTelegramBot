@@ -3,16 +3,11 @@ package com.github.Naroru.JavaRushTelegramBot.bot;
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandContainer;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
-import com.github.Naroru.JavaRushTelegramBot.command.NoCommand;
-import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 public class JavarushBot extends TelegramLongPollingBot {

@@ -16,12 +16,12 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Unit-testing for CommandContainer")
+@DisplayName("CommandContainer unit-testing")
 @ExtendWith(MockitoExtension.class)
 class CommandContainerTest {
 
-   /* @Mock
-    SendMessageService sendMessageService;
+    @Mock
+    private SendMessageService sendMessageService;
 
     private CommandContainer commandContainer;
 
@@ -32,30 +32,33 @@ class CommandContainerTest {
     }
 
     @Test
-    public void shouldGetAllTheExistingCommands() {
-
+    public void allCommandsExists()
+    {
         //when-then
         Arrays.stream(CommandName.values())
                 .forEach(
-                        commandName ->
+                        value ->
                         {
-                            Command command = commandContainer.getCommand(commandName.getCommandName());
-                            Assertions.assertNotEquals(UnknowCommand.class,  command.getClass());
+                            String commandName = value.getCommandName();
+                            Command command = commandContainer.getCommand(commandName);
+                            assertNotEquals(UnknowCommand.class, command.getClass());
                         }
-
                 );
     }
 
     @Test
-    public void shouldReturnUnknownCommand()
+    public void ShouldBeUnknownCommand()
     {
         //given
-        String unknownCommandName = "/dfsdfsd";
+        String commandName = "dfgdfg";
 
         //when
-        Command command = commandContainer.getCommand(unknownCommandName);
+        Command command = commandContainer.getCommand(commandName);
 
         //then
+
         assertEquals(UnknowCommand.class, command.getClass());
-    }*/
+    }
+
+
 }

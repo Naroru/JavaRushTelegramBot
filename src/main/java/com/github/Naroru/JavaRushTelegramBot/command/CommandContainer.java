@@ -1,17 +1,14 @@
 package com.github.Naroru.JavaRushTelegramBot.command;
 
-import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.HelpCommand;
-import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.StartCommand;
-import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.StopCommand;
-import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand;
+import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.*;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-
 public class CommandContainer {
+
     private final Map<String, Command> commands;
     private final Command unknownCommand;
    public CommandContainer (SendMessageService sendMessageService)
