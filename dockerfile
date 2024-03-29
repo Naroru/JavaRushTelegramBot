@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk11:ubi
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=./target/*.jar
 ENV BOT_NAME=testname
 ENV BOT_TOKEN=123
 COPY ${JAR_FILE} app.jar
