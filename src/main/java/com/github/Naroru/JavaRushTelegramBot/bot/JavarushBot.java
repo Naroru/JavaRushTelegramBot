@@ -14,11 +14,13 @@ public class JavarushBot extends TelegramLongPollingBot {
 
     private final String COMMAND_PREFIX = "/";
     private final CommandContainer commandContainer;
+
+
     @Value("${bot.username}")
     private String name;
 
 
-    public JavarushBot(String botToken ) {
+    public JavarushBot(String botToken) {
         super(botToken);
         this.commandContainer = new CommandContainer(new SendMessageServiceImp(this));
     }

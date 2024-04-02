@@ -4,6 +4,7 @@ Required software:
 - terminal for running bash scripts
 - docker
 - docker-compose
+- maven
 
 to deploy application, switch to needed branch and run bash script:
 
