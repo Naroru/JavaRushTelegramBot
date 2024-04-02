@@ -12,7 +12,7 @@
 
 	<groupId>com.github.Naroru.JavaRushTelegramBot</groupId>
 	<artifactId>Javarush-telegrambot</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<name>Javarush-telegrambot</name>
 	<description>Javarush TelegramBot </description>
 
@@ -47,6 +47,15 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
