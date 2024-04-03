@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BotConfig {
+
+
     @Value("${bot.token}")
-    private String token;
+    private String token = "";
 
     @Bean
     public String getToken()
