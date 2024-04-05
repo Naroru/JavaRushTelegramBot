@@ -2,9 +2,27 @@ version: '3.1'
 
 services:
   jrtb:
+    depends_on:
+      - jrtb-db
     build:
       context: .
     environment:
-      - BOT_NAME=${BOT_NAME}
-      - BOT_TOKEN=${BOT_TOKEN}
+      - BOT_NAME = ${BOT_NAME}
+      - BOT_TOKEN = ${BOT_TOKEN}
+      - BOT_DB_USER = ${BOT_DB_PASSWORD}
+      - BOT_DB_USER = ${BOT_DB_USER}
     restart: always
+
+  jrtb-db:
+    image: 'postgres:14'
+    container_name: docker_postgres
+    restart: always
+    environment:
+      - POSTGRES_DB = jrtb_db
+      - POSTGRES_PASSWORD = ${BOT_DB_PASSWORD}
+      - POSTGRES_USER = ${BOT_DB_USER}
+
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
