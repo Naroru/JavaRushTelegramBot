@@ -56,6 +56,9 @@ jobs:
         env:
           BOT_NAME: ${{ secrets.BOT_NAME }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          POSTGRES_HOST: localhost
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
         #  вместо действия можно указать конкретнкую команду, которая выполнится. Здесь мы указываем, чтобы выполнилась команда mvn -B package --file pom.xml
         #  выполнится она на ubuntu-latest, которую мы указали ранее  для Job
         run: mvn -B package --file pom.xml
