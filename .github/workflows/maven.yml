@@ -19,17 +19,21 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: dev_jrtb_db_user
+          POSTGRES_PASSWORD: dev_jrtb_db_password
+          POSTGRES_DB: dev_jrtb_db
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+
     steps:
 
-    - uses: actions/checkout@v3
-    - name: Set up MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        mysql version: '5.7'
-        mysql database: 'dev_jrtb_db'
-        mysql root password: 'root'
-        mysql user: 'dev_jrtb_db_user'
-        mysql password: 'dev_jrtb_db_password'
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
