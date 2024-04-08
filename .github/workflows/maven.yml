@@ -25,9 +25,9 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_USER: dev_jrtb_user
-          POSTGRES_PASSWORD: dev_jrtb_pass
-          POSTGRES_DB: dev_jrtb_db
+          POSTGRES_USER: prod_jrtb_db_user'
+          POSTGRES_PASSWORD: Pap9L9VVUkNYj99GCUCC3mJkb
+          POSTGRES_DB: jrtb_db
 
         # Set health checks to wait until postgres has started
         options: >-
