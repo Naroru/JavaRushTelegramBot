@@ -2,15 +2,13 @@ package com.github.Naroru.JavaRushTelegramBot.command;
 
 import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
-import org.junit.jupiter.api.Assertions;
+import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.util.Assert;
 
 import java.util.Arrays;
 
@@ -23,12 +21,15 @@ class CommandContainerTest {
     @Mock
     private SendMessageService sendMessageService;
 
+    @Mock
+    private TelegramUserService telegramUserService;
+
     private CommandContainer commandContainer;
 
     @BeforeEach
     public void init()
     {
-        commandContainer = new CommandContainer(sendMessageService);
+        commandContainer = new CommandContainer(sendMessageService, telegramUserService);
     }
 
     @Test

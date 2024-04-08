@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+  jrtb-db:
+    image: 'postgres:14'
+    container_name: docker_postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=dev_jrtb_db
+      - POSTGRES_PASSWORD=dev_jrtb_pass
+      - POSTGRES_USER=dev_jrtb_user
+
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '5432:5432'
+    expose:
+      # Opens port 3306 on the container
+      - '5432'

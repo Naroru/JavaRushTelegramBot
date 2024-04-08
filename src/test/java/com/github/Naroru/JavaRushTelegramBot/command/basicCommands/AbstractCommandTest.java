@@ -4,6 +4,7 @@ import com.github.Naroru.JavaRushTelegramBot.bot.JavarushBot;
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
+import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -26,6 +27,9 @@ import static org.mockito.Mockito.when;
 
     @Mock
     Update update;
+
+    @Mock
+    TelegramUserService telegramUserService;
 
     @Mock
     JavarushBot javarushBot;

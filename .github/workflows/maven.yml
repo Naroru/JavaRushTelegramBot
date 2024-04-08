@@ -1,39 +1,68 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
+# Имя workflow, т.е. рабочего процесса, который будет в git hub actions
 name: Java CI with Maven
-
+# указываем, при каких действиях он будет вызываться.
+# Подробный список действий  https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+#  указываем "работы" (группировки действий), которые будут выполняться в рамках текущего workflow
+# по умолчанию выполняются параллельно друг другу. Можно настроить, чтобы последовательно
 jobs:
+  #  имя работы
   build:
+    #  какое то разрешение
     permissions: write-all
+    #  указываем на чем она будет запускаться ( можно виндоус еше и т д. Это ресурсы гитхаба)
     runs-on: ubuntu-latest
 
-    steps:
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: dev_jrtb_user
+          POSTGRES_PASSWORD: dev_jrtb_pass
+          POSTGRES_DB: dev_jrtb_db
 
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      env:
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+    #  указываем конкретные шаги в рамках текущей работы, которые надо выполнить
+    steps:
+      #  имя шага
+      - name: Checkout
+      #  указываем действие. Действие - это сразу группа команд. Действия есть куча предопределенных, их можно брать тут https://github.com/marketplace?type=actions
+        uses: actions/checkout@v3
+      #  имя след шага
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        #  для текущего действия надо задать доп параметры
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        env:
           BOT_NAME: ${{ secrets.BOT_NAME }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      run: mvn -B package --file pom.xml
+          POSTGRES_HOST: localhost
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
+        #  вместо действия можно указать конкретнкую команду, которая выполнится. Здесь мы указываем, чтобы выполнилась команда mvn -B package --file pom.xml
+        #  выполнится она на ubuntu-latest, которую мы указали ранее  для Job
+        run: mvn -B package --file pom.xml
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+      # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+      - name: Update dependency graph
+        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
