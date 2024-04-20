@@ -28,30 +28,28 @@ class SendMessageServiceImpTest {
     private JavarushBot javarushBot;
 
     @BeforeEach
-    public void init()
-    {
+    public void init() {
         sendMessageService = new SendMessageServiceImp(javarushBot);
     }
-@Test
+
+    @Test
     public void sendMessageShouldBeCorrect() throws TelegramApiException {
-    //given
-    String chatID = "123";
-    String message = "test message";
+        //given
+        String chatID = "123";
+        String message = "test message";
 
-    SendMessage sendMessage = new SendMessage();
-    sendMessage.setChatId(chatID);
-    sendMessage.setText(message);
-    sendMessage.enableHtml(true);
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatID);
+        sendMessage.setText(message);
+        sendMessage.enableHtml(true);
 
-    //when
-    sendMessageService.sendMessage(chatID, message);
+        //when
+        sendMessageService.sendMessage(chatID, message);
 
-    //then
-    verify(javarushBot,only()).execute(sendMessage);
+        //then
+        verify(javarushBot, only()).execute(sendMessage);
 
-}
-
-
+    }
 
 
 }

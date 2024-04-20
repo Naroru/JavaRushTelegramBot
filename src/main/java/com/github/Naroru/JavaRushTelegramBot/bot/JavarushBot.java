@@ -3,6 +3,8 @@ package com.github.Naroru.JavaRushTelegramBot.bot;
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandContainer;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
+import com.github.Naroru.JavaRushTelegramBot.javarushclient.JavaRushGroupClient;
+import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,10 +23,17 @@ public class JavarushBot extends TelegramLongPollingBot {
     private String name;
 
 
-    public JavarushBot(String botToken, TelegramUserService telegramUserService) {
+    public JavarushBot(String botToken,
+                       TelegramUserService telegramUserService,
+                       JavaRushGroupClient javaRushGroupClient,
+                       GroupSubsciptionService groupSubsciptionService) {
 
         super(botToken);
-        this.commandContainer = new CommandContainer(new SendMessageServiceImp(this),telegramUserService);
+        this.commandContainer = new CommandContainer(
+                new SendMessageServiceImp(this),
+                telegramUserService,
+                javaRushGroupClient,
+                groupSubsciptionService);
 
     }
 

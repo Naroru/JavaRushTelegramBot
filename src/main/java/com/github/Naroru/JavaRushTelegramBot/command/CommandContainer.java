@@ -1,6 +1,8 @@
 package com.github.Naroru.JavaRushTelegramBot.command;
 
 import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.*;
+import com.github.Naroru.JavaRushTelegramBot.javarushclient.JavaRushGroupClient;
+import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 
@@ -13,7 +15,10 @@ public class CommandContainer {
     private final Map<String, Command> commands;
     private final Command unknownCommand;
 
-   public CommandContainer (SendMessageService sendMessageService, TelegramUserService telegramUserService)
+   public CommandContainer (SendMessageService sendMessageService,
+                            TelegramUserService telegramUserService,
+                            JavaRushGroupClient javaRushGroupClient,
+                            GroupSubsciptionService groupSubsciptionService)
    {
 
        commands = new HashMap<>();
@@ -22,6 +27,8 @@ public class CommandContainer {
        commands.put(CommandName.NO.getCommandName(), new NoCommand(sendMessageService));
        commands.put(CommandName.HELP.getCommandName(), new HelpCommand(sendMessageService));
        commands.put(CommandName.STAT.getCommandName(), new StatCommand(sendMessageService, telegramUserService));
+       commands.put(CommandName.ADD_GROUP_SUB.getCommandName(), new AddGroupSubCommand(sendMessageService, javaRushGroupClient, groupSubsciptionService));
+       commands.put(CommandName.GET_GROUP_LIST.getCommandName(),new GetGroupListCommand(sendMessageService,telegramUserService));
 
        unknownCommand = new UnknowCommand(sendMessageService);
    }
