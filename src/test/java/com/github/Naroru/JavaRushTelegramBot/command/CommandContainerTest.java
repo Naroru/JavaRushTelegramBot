@@ -1,6 +1,7 @@
 package com.github.Naroru.JavaRushTelegramBot.command;
 
 import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand;
+import com.github.Naroru.JavaRushTelegramBot.javarushclient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,12 +25,15 @@ class CommandContainerTest {
     @Mock
     private TelegramUserService telegramUserService;
 
+    @Mock
+    private JavaRushGroupClient javaRushGroupClient;
+
     private CommandContainer commandContainer;
 
     @BeforeEach
     public void init()
     {
-        commandContainer = new CommandContainer(sendMessageService, telegramUserService);
+        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient);
     }
 
     @Test

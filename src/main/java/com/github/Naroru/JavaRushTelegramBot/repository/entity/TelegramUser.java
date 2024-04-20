@@ -3,11 +3,12 @@ package com.github.Naroru.JavaRushTelegramBot.repository.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 /**
  * Telegram User entity.
@@ -27,6 +28,18 @@ public class TelegramUser {
     @Column(name = "active")
     private boolean active;
 
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private List<GroupSubscribtion> groups;
+
+
+    public void addGroup(GroupSubscribtion groupSubscribtion)
+    {
+        if(isNull(groupSubscribtion))
+            groups = new ArrayList<>();
+        groups.add(groupSubscribtion);
+
+
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

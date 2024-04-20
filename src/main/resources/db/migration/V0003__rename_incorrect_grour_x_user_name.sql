@@ -1,0 +1,1 @@
+ALTER TABLE grour_x_user RENAME TO group_x_user;

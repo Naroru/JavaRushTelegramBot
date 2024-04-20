@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Integration-level testing for JavaRushGroupClientImplTest")
-class JavaRushGroupClientImpTest {
+class JavaRushGroupClientIT {
 
     private final JavaRushGroupClientImp javaRushGroupClientImp = new JavaRushGroupClientImp("https://javarush.com/api/1.0/rest");
 

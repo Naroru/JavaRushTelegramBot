@@ -6,6 +6,8 @@ import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.ArrayList;
+
 
 public class StartCommand implements Command {
 
@@ -33,7 +35,7 @@ public class StartCommand implements Command {
                     telegramUserService.save(telegramUser);
                 },
                 () -> {
-                    TelegramUser telegramUser = new TelegramUser(chatID, true);
+                    TelegramUser telegramUser = new TelegramUser(chatID, true, new ArrayList<>());
                     telegramUserService.save(telegramUser);
                 }
         );
