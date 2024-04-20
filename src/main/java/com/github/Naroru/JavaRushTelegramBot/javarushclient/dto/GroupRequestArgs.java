@@ -12,6 +12,7 @@ import static java.util.Objects.nonNull;
  */
 @Builder
 @Getter
+@EqualsAndHashCode
 public class GroupRequestArgs {
 
     private final String query;

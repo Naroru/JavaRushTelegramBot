@@ -15,13 +15,17 @@ import java.util.stream.Collectors;
 import static com.github.Naroru.JavaRushTelegramBot.command.CommandName.ADD_GROUP_SUB;
 import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
-import static org.apache.commons.lang3.Validate.notNull;
+
 
 public class AddGroupSubCommand implements Command {
+
 
     private final SendMessageService sendMessageService;
     private final JavaRushGroupClient javaRushGroupClient;
     private final GroupSubsciptionService groupSubsciptionService;
+
+
+    public static final String GROUP_NOT_FOUND_MESSAGE = "Указанная группа не найдена. Проверьте правильность ID";
 
     public AddGroupSubCommand(SendMessageService sendMessageService, JavaRushGroupClient javaRushGroupClient, GroupSubsciptionService groupSubsciptionService) {
         this.sendMessageService = sendMessageService;
@@ -59,8 +63,7 @@ public class AddGroupSubCommand implements Command {
 
     private void sendMessageGroupNotFound(String chatID) {
 
-        String message = "Указанная группа не найдена. Проверьте правильность ID";
-        sendMessageService.sendMessage(chatID, message);
+        sendMessageService.sendMessage(chatID, GROUP_NOT_FOUND_MESSAGE);
     }
 
     private void makeSubscription(GroupDiscussionInfo groupDiscussionInfo, String chatID) {
@@ -77,6 +80,8 @@ public class AddGroupSubCommand implements Command {
                 .map(groupInfo -> String.format("%s: %d\n", groupInfo.getTitle(), groupInfo.getId()))
                 .collect(Collectors.joining());
 
+//todo возможно подобные сообщения стоит вынести в публичные статические функции, чтобы не дублировать текст в тестах
+
         String messageText = String.format("""
                 Для подписи на определенную группу следует использовать команду:
 
@@ -90,8 +95,9 @@ public class AddGroupSubCommand implements Command {
     }
 
     private void sendMessageIDIsNotCorrect(String groupID, String chatID) {
+        //todo возможно подобные сообщения стоит вынести в публичные статические функции, чтобы не дублировать текст в тестах
         String message = String.format("Указанный ID = %s не является ID существующей группы. Используйте команду " +
-                "%s для получения списка сущесвующих ID", groupID, ADD_GROUP_SUB.getCommandName());
+                "%s для получения списка существующих ID", groupID, ADD_GROUP_SUB.getCommandName());
 
         sendMessageService.sendMessage(chatID, message);
 

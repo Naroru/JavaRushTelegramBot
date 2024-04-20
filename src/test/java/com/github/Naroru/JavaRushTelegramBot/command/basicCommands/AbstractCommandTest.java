@@ -2,12 +2,10 @@ package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
 import com.github.Naroru.JavaRushTelegramBot.bot.JavarushBot;
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
-import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -26,21 +24,15 @@ import static org.mockito.Mockito.when;
      abstract Command getCommand();
 
 
-    @Mock
-    TelegramUserService telegramUserService;
-
-    @Mock
-    JavarushBot javarushBot;
-
-    public SendMessageService sendMessageService;
+    protected JavarushBot javarushBot = Mockito.mock(JavarushBot.class);
+    protected SendMessageServiceImp sendMessageService = new SendMessageServiceImp(javarushBot);
+    protected TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
 
 
     @Test
     public void CommandShouldExecuteProperly() throws TelegramApiException {
        //given
         long chatID = 1231232342313L;
-
-        sendMessageService = new SendMessageServiceImp(javarushBot);
 
         Update update =  Mockito.mock(Update.class);
         Message message = Mockito.mock(Message.class);
