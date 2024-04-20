@@ -25,8 +25,6 @@ import static org.mockito.Mockito.when;
 
      abstract Command getCommand();
 
-    @Mock
-    Update update;
 
     @Mock
     TelegramUserService telegramUserService;

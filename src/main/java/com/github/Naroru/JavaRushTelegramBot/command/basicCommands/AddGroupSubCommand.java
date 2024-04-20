@@ -10,9 +10,12 @@ import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.github.Naroru.JavaRushTelegramBot.command.CommandName.ADD_GROUP_SUB;
+import static java.util.Objects.isNull;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
+import static org.apache.commons.lang3.Validate.notNull;
 
 public class AddGroupSubCommand implements Command {
 
@@ -34,50 +37,56 @@ public class AddGroupSubCommand implements Command {
         String chatID = update.getMessage().getChatId().toString();
 
         if (message.equalsIgnoreCase(ADD_GROUP_SUB.getCommandName())) {
-
             sendAllGroupsWithID(chatID);
             return;
         }
 
-            String groupID = message.split(" ")[1];
+        String groupID = message.split(" ")[1];
 
-            if (isNumeric(groupID))
-                makeSubscription(groupID, chatID);
+        if (isNumeric(groupID)) {
+
+            GroupDiscussionInfo groupDiscussionInfo = javaRushGroupClient.getGroupByID(Integer.parseInt(groupID));
+
+            if (isNull(groupDiscussionInfo))
+                sendMessageGroupNotFound(chatID);
             else
-                sendMessageIDIsNotCorrect(groupID, chatID);
+                makeSubscription(groupDiscussionInfo, chatID);
 
-
+        } else
+            sendMessageIDIsNotCorrect(groupID, chatID);
     }
 
-    private void makeSubscription(String groupID, String chatID) {
 
-        GroupDiscussionInfo groupDiscussionInfo = javaRushGroupClient.getGroupByID(Integer.parseInt(groupID));
+    private void sendMessageGroupNotFound(String chatID) {
+
+        String message = "Указанная группа не найдена. Проверьте правильность ID";
+        sendMessageService.sendMessage(chatID, message);
+    }
+
+    private void makeSubscription(GroupDiscussionInfo groupDiscussionInfo, String chatID) {
 
         groupSubsciptionService.save(chatID, groupDiscussionInfo);
-
-        String message = "Подписка оформлена!";
-
-        sendMessageService.sendMessage(chatID, message);
-
+        sendMessageService.sendMessage(chatID, "Подписка оформлена!");
     }
 
     private void sendAllGroupsWithID(String chatID) {
 
-
-        StringBuilder messageText = new StringBuilder("Для подписи на определенную группу следует использовать "
-                + "команду:\n\n <b>/addgroupsub ID_группы</b>\n\n"
-                + "Список доступных групп и ID:\n");
-
         List<GroupInfo> groups = javaRushGroupClient.getGroupList(GroupRequestArgs.builder().build());
 
-        for (GroupInfo groupInfo : groups) {
-            messageText.append(groupInfo.getTitle())
-                    .append(": ")
-                    .append(groupInfo.getId())
-                    .append("\n");
-        }
+        String groupsAndID = groups.stream()
+                .map(groupInfo -> String.format("%s: %d\n", groupInfo.getTitle(), groupInfo.getId()))
+                .collect(Collectors.joining());
 
-        sendMessageService.sendMessage(chatID, messageText.toString());
+        String messageText = String.format("""
+                Для подписи на определенную группу следует использовать команду:
+
+                 <b>/addgroupsub ID_группы</b>
+
+                Список доступных групп и ID:
+                %s""", groupsAndID);
+
+
+        sendMessageService.sendMessage(chatID, messageText);
     }
 
     private void sendMessageIDIsNotCorrect(String groupID, String chatID) {

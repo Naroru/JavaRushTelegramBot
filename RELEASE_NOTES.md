@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.5.0-SNAPSHOT
+*   JRTB-5: added command to subscribe to groups and to see current subscriptions
+*   JRTB-6: added command to see current subscriptions
+
 ## 0.4.0-SNAPSHOT
 *   JRTB-1: added repository layer.
 
