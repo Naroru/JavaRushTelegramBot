@@ -11,6 +11,7 @@ services:
       - BOT_TOKEN = ${BOT_TOKEN}
       - BOT_DB_USER = ${BOT_DB_PASSWORD}
       - BOT_DB_USER = ${BOT_DB_USER}
+      - BOT_DB_URL = ${BOT_DB_URL}
     restart: always
 
   jrtb-db:

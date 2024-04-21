@@ -24,6 +24,7 @@ jobs:
         # Docker Hub image
         image: postgres
         # Provide the password for postgres
+        # на самом деле тут можно прописать значения из тестовых проперти напрямую, а не использовать переменные гитхаба
         env:
           POSTGRES_USER: ${{ vars.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
