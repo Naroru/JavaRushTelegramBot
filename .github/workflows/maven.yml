@@ -44,9 +44,6 @@ jobs:
       - name: Checkout
       #  указываем действие. Действие - это сразу группа команд. Действия есть куча предопределенных, их можно брать тут https://github.com/marketplace?type=actions
         uses: actions/checkout@v3
-      #  имя след шага
-      - name: test
-         run:echo{{env.BOT_DB_NAME}}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
