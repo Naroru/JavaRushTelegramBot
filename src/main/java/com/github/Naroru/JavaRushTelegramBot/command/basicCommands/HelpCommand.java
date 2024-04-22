@@ -18,6 +18,7 @@ public class HelpCommand implements Command {
                     %s - приостановить работу со мной
                     %s - подписаться на группу
                     %s - посмотреть список своих подписок
+                    %s - отменить подписку на группу
                     %s - получить статистику по активным пользователям
 
                     %s - получить помощь в работе со мной
@@ -27,6 +28,7 @@ public class HelpCommand implements Command {
             STOP.getCommandName(),
             ADD_GROUP_SUB.getCommandName(),
             GET_GROUP_LIST.getCommandName(),
+            DELETE_GROUP_SUB.getCommandName(),
             STAT.getCommandName(),
             HELP.getCommandName());
 

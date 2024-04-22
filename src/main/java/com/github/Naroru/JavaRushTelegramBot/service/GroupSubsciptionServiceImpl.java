@@ -54,4 +54,14 @@ public class GroupSubsciptionServiceImpl implements GroupSubsciptionService {
 
 
     }
+
+    @Override
+    public GroupSubscribtion save(GroupSubscribtion groupSubscribtion) {
+        return groupRepository.save(groupSubscribtion);
+    }
+
+    @Override
+    public Optional<GroupSubscribtion> findByID(int id) {
+        return groupRepository.findById(id);
+    }
 }

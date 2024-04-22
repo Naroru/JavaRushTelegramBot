@@ -75,10 +75,10 @@ class AddGroupSubCommandTest {
         String messageText = String.format("""
                 Для подписи на определенную группу следует использовать команду:
 
-                 <b>/addgroupsub ID_группы</b>
+                 <b>%s ID_группы</b>
 
                 Список доступных групп и ID:
-                %s""", groupsAndID);
+                %s""", ADD_GROUP_SUB.getCommandName(), groupsAndID);
 
         //when
         command.execute(update);
