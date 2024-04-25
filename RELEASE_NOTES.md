@@ -1,6 +1,9 @@
 # Release Notes
 
 ## 0.5.0-SNAPSHOT
+*   JRTB-7: added command to delete subscription
+
+## 0.5.0-SNAPSHOT
 *   JRTB-5: added command to subscribe to groups and to see current subscriptions
 *   JRTB-6: added command to see current subscriptions
 

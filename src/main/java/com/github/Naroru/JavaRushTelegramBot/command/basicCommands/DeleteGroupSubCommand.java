@@ -4,7 +4,6 @@ import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.GroupSubscribtion;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
-import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -20,13 +19,10 @@ public class DeleteGroupSubCommand implements Command {
 
     private final SendMessageService sendMessageService;
     private final TelegramUserService telegramUserService;
-    private final GroupSubsciptionService groupSubsciptionService;
 
-
-    public DeleteGroupSubCommand(SendMessageService sendMessageService, TelegramUserService telegramUserService, GroupSubsciptionService groupSubsciptionService) {
+    public DeleteGroupSubCommand(SendMessageService sendMessageService, TelegramUserService telegramUserService) {
         this.sendMessageService = sendMessageService;
         this.telegramUserService = telegramUserService;
-        this.groupSubsciptionService = groupSubsciptionService;
     }
 
     @Override
@@ -37,7 +33,7 @@ public class DeleteGroupSubCommand implements Command {
         TelegramUser user = telegramUserService.findByChatId(chatID).orElseThrow(NotFoundException::new);
 
         if (commandMessage.equalsIgnoreCase(CommandName.DELETE_GROUP_SUB.getCommandName())) {
-            sendMessageAllGroupSubs(chatID,user);
+            sendMessageAllGroupSubs(user);
             return;
         }
 
@@ -45,23 +41,33 @@ public class DeleteGroupSubCommand implements Command {
 
         if (isNumeric(groupID)) {
 
-            Optional<GroupSubscribtion> optionalGroupSub = groupSubsciptionService.findByID(Integer.parseInt(groupID));
+            //Optional<GroupSubscribtion> optionalGroupSub = groupSubsciptionService.findByID(Integer.parseInt(groupID));
 
-            if (optionalGroupSub.isPresent()) {
+            // if (optionalGroupSub.isPresent()) {
 
-                GroupSubscribtion groupSubscribtion = optionalGroupSub.get();
+            //GroupSubscribtion groupSubscribtion = optionalGroupSub.get();
+            
+//              groupSubscribtion.getUsers().remove(user);
+//               groupSubsciptionService.save(groupSubscribtion);
 
-     /*           groupSubscribtion.getUsers().remove(user);
-                groupSubsciptionService.save(groupSubscribtion);
-*/
+            Optional<GroupSubscribtion> optionalGroupSubscription = user.getGroups().stream()
+                    .filter(subscription -> subscription.getId() == Integer.parseInt(groupID))
+                    .findFirst();
 
-                user.getGroups().remove(groupSubscribtion);
+            if (optionalGroupSubscription.isPresent()) {
+
+                 var g = optionalGroupSubscription.get();
+                user.getGroups().remove(g);
                 telegramUserService.save(user);
-
                 sendMessageService.sendMessage(chatID, "Подписка удалена!");
+
+            } else {
+                sendMessageGroupSubIDNotFound(user);
             }
-            else
-                sendMessageGroupSubIDNotFound(chatID,user);
+
+//            }
+//            else
+//                sendMessageGroupSubIDNotFound(user);
 
         } else
             sendMessageService.sendMessage(chatID, "Указанный ID группы некорректный. ID может содержать только цифры");
@@ -69,7 +75,7 @@ public class DeleteGroupSubCommand implements Command {
 
     }
 
-    private void sendMessageAllGroupSubs(String chatID, TelegramUser user)
+    private void sendMessageAllGroupSubs(TelegramUser user)
     {
         //todo it looks similar GetGroupListCommand()
         String message = String.format("""
@@ -81,16 +87,16 @@ public class DeleteGroupSubCommand implements Command {
                 CommandName.DELETE_GROUP_SUB.getCommandName(),
                 getUserActiveGroupSubs(user));
 
-        sendMessageService.sendMessage(chatID,message);
+        sendMessageService.sendMessage(user.getChatId(),message);
     }
 
-    private void sendMessageGroupSubIDNotFound(String chatID, TelegramUser user) {
+    private void sendMessageGroupSubIDNotFound(TelegramUser user) {
 
         String message =  String.format("Указанная группа не найдена, проверьте правильность ID, " +
                 "ваши текущие подписки на группы: \n" +
                 "%s", getUserActiveGroupSubs(user));
 
-        sendMessageService.sendMessage(chatID, message);
+        sendMessageService.sendMessage(user.getChatId(), message);
 
     }
 

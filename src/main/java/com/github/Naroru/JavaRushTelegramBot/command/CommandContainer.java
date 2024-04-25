@@ -29,7 +29,7 @@ public class CommandContainer {
        commands.put(CommandName.STAT.getCommandName(), new StatCommand(sendMessageService, telegramUserService));
        commands.put(CommandName.ADD_GROUP_SUB.getCommandName(), new AddGroupSubCommand(sendMessageService, javaRushGroupClient, groupSubsciptionService));
        commands.put(CommandName.GET_GROUP_LIST.getCommandName(),new GetGroupListCommand(sendMessageService,telegramUserService));
-       commands.put(CommandName.DELETE_GROUP_SUB.getCommandName(), new DeleteGroupSubCommand(sendMessageService,telegramUserService,groupSubsciptionService));
+       commands.put(CommandName.DELETE_GROUP_SUB.getCommandName(), new DeleteGroupSubCommand(sendMessageService,telegramUserService));
 
 
        unknownCommand = new UnknowCommand(sendMessageService);
