@@ -4,7 +4,6 @@ import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.GroupSubscribtion;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
-import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.BeforeEach;
