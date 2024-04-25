@@ -28,7 +28,11 @@ public class TelegramUser {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+   // @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "group_x_user"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<GroupSubscribtion> groups;
 
 

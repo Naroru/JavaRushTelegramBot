@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
@@ -14,7 +15,6 @@ import static java.util.Objects.isNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 
 public class GroupSubscribtion {
 
@@ -39,5 +39,16 @@ public class GroupSubscribtion {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupSubscribtion that = (GroupSubscribtion) o;
+        return id == that.id && Objects.equals(title, that.title);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title);
+    }
 }

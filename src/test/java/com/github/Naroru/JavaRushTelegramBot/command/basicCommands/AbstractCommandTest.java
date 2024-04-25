@@ -54,5 +54,17 @@ import static org.mockito.Mockito.when;
 
     }
 
+    public static Update preparedUpdate(Long chatID, String messageText)
 
+    {
+        Message message = Mockito.mock(Message.class);
+        when(message.getChatId()).thenReturn(chatID);
+        when(message.getText()).thenReturn(messageText);
+
+        Update update = new Update();
+        update.setMessage(message);
+
+        return update;
+
+    }
 }

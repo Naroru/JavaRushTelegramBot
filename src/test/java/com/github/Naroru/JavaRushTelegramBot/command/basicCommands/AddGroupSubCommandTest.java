@@ -1,5 +1,6 @@
 package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
+import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
 import com.github.Naroru.JavaRushTelegramBot.javarushclient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupDiscussionInfo;
@@ -43,7 +44,7 @@ class AddGroupSubCommandTest {
 
     private final String chatID = "123";
 
-    private AddGroupSubCommand command;
+    private Command command;
 
     @BeforeEach
     public void init()
@@ -75,10 +76,10 @@ class AddGroupSubCommandTest {
         String messageText = String.format("""
                 Для подписи на определенную группу следует использовать команду:
 
-                 <b>/addgroupsub ID_группы</b>
+                 <b>%s ID_группы</b>
 
                 Список доступных групп и ID:
-                %s""", groupsAndID);
+                %s""", ADD_GROUP_SUB.getCommandName(), groupsAndID);
 
         //when
         command.execute(update);
