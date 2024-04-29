@@ -1,4 +1,4 @@
-package com.github.Naroru.JavaRushTelegramBot.javarushclient.dto;
+package com.github.Naroru.JavaRushTelegramBot.clients.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.github.Naroru.JavaRushTelegramBot.service;
 
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupDiscussionInfo;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupDiscussionInfo;
 import com.github.Naroru.JavaRushTelegramBot.repository.GroupSubscriptionRepository;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.GroupSubscribtion;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

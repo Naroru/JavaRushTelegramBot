@@ -1,6 +1,6 @@
 package com.github.Naroru.JavaRushTelegramBot.service;
 
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupDiscussionInfo;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupDiscussionInfo;
 import com.github.Naroru.JavaRushTelegramBot.repository.GroupSubscriptionRepository;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.GroupSubscribtion;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
@@ -48,6 +48,7 @@ public class GroupSubsciptionServiceImpl implements GroupSubsciptionService {
             groupSubscribtion.setId(info.getId());
             groupSubscribtion.setUsers(List.of(user));
 
+
         }
 
         return groupRepository.save(groupSubscribtion);
@@ -63,5 +64,10 @@ public class GroupSubsciptionServiceImpl implements GroupSubsciptionService {
     @Override
     public Optional<GroupSubscribtion> findByID(int id) {
         return groupRepository.findById(id);
+    }
+
+    @Override
+    public List<GroupSubscribtion> findAll() {
+        return groupRepository.findAll();
     }
 }

@@ -1,6 +1,11 @@
 # Release Notes
 
-## 0.5.0-SNAPSHOT
+## 0.7.0-SNAPSHOT
+*  JRTB-9: Added an option to activate bot
+*  JRTB-8: Added an option  to set inactive using bot
+*  JRTB-4: Added notifications about new articles
+* 
+## 0.6.0-SNAPSHOT
 *   JRTB-7: added command to delete subscription
 
 ## 0.5.0-SNAPSHOT
