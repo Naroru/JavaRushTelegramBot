@@ -1,16 +1,12 @@
-package com.github.Naroru.JavaRushTelegramBot.javarushclient;
+package com.github.Naroru.JavaRushTelegramBot.clients.groupClient;
 
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupCountRequestArgs;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupDiscussionInfo;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupInfo;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupRequestArgs;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupCountRequestArgs;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupDiscussionInfo;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupInfo;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupRequestArgs;
 import kong.unirest.GenericType;
 import kong.unirest.Unirest;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,9 +19,12 @@ public class JavaRushGroupClientImp implements JavaRushGroupClient{
     RestTemplate restTemplate = new RestTemplate();
 
     private final String javarushAPIGroupPath;
+    private final String javarushAPIPostPath;
+
 
     public JavaRushGroupClientImp(@Value("${javarush.api.path}") String javarushApiPath) {
         javarushAPIGroupPath = javarushApiPath + "/groups";
+        javarushAPIPostPath = javarushApiPath + "/posts";
     }
 
     @Override
@@ -57,7 +56,7 @@ public class JavaRushGroupClientImp implements JavaRushGroupClient{
     public Integer getGroupCount(GroupCountRequestArgs requestArgs) {
 
 
-        return Unirest.get("https://javarush.com/api/1.0/rest/groups/count")
+        return Unirest.get(String.format("%s%s",javarushAPIGroupPath,"/count"))
                 .queryString(requestArgs.populateQueries())
                 .asObject(Integer.class)
                 .getBody();
@@ -71,6 +70,18 @@ public class JavaRushGroupClientImp implements JavaRushGroupClient{
 
         return Unirest.get(String.format("%s/group%d", javarushAPIGroupPath, id))
                 .asObject(GroupDiscussionInfo.class)
+                .getBody();
+
+    }
+
+    @Override
+    public int getLastPostID(int groupID) {
+
+        return Unirest.get(javarushAPIPostPath)
+                .queryString("groupKid", groupID)
+                .queryString("order", "NEW")
+                .queryString("limit", 1)
+                .asObject(Integer.class)
                 .getBody();
 
     }

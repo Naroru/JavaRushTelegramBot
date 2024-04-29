@@ -1,9 +1,7 @@
-package com.github.Naroru.JavaRushTelegramBot.javarushclient;
+package com.github.Naroru.JavaRushTelegramBot.clients;
 
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupCountRequestArgs;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupDiscussionInfo;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupInfo;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupRequestArgs;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.*;
+import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClientImp;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +28,7 @@ class JavaRushGroupClientIT {
         assertFalse(list.isEmpty());
 
     }
+
 
     @Test
     @DisplayName("Should get a proper list of groups with Limit and Offser args")

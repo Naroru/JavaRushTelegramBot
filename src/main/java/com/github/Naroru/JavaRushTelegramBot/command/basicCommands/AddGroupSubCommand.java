@@ -1,10 +1,10 @@
 package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.JavaRushGroupClient;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupDiscussionInfo;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupInfo;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.dto.GroupRequestArgs;
+import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupDiscussionInfo;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupInfo;
+import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupRequestArgs;
 import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;

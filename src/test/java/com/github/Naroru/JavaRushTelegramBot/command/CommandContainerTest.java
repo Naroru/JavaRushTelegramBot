@@ -1,7 +1,7 @@
 package com.github.Naroru.JavaRushTelegramBot.command;
 
 import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand;
-import com.github.Naroru.JavaRushTelegramBot.javarushclient.JavaRushGroupClient;
+import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;

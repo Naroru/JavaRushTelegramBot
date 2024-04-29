@@ -9,7 +9,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
  * Implementation of {@link SendMessageService} interface.
  */
 
-
+@Service
 public class SendMessageServiceImp implements SendMessageService{
 
     private final JavarushBot javarushBot;
