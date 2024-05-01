@@ -12,7 +12,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +39,7 @@ class CommandContainerTest {
     @BeforeEach
     public void init()
     {
-        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient,groupSubsciptionService);
+        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient,groupSubsciptionService, List.of("username"));
     }
 
     @Test
@@ -49,7 +51,7 @@ class CommandContainerTest {
                         value ->
                         {
                             String commandName = value.getCommandName();
-                            Command command = commandContainer.getCommand(commandName);
+                            Command command = commandContainer.getCommand(commandName,"username");
                             assertNotEquals(UnknowCommand.class, command.getClass());
                         }
                 );
@@ -62,7 +64,7 @@ class CommandContainerTest {
         String commandName = "dfgdfg";
 
         //when
-        Command command = commandContainer.getCommand(commandName);
+        Command command = commandContainer.getCommand(commandName, "username");
 
         //then
 
