@@ -2,7 +2,6 @@ package com.github.Naroru.JavaRushTelegramBot.service;
 
 import com.github.Naroru.JavaRushTelegramBot.repository.TelegramUserRepository;
 import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +26,11 @@ public class TelegramUserServiceImpl implements TelegramUserService{
     @Override
     public List<TelegramUser> retrieveAllActiveUsers() {
         return telegramUserRepository.findAllByActiveTrue();
+    }
+
+    @Override
+    public List<TelegramUser> retrieveAllInactiveUsers() {
+        return telegramUserRepository.findAllByActiveFalse();
     }
 
     @Override

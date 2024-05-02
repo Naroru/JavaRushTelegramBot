@@ -2,35 +2,54 @@ package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
 import com.github.Naroru.JavaRushTelegramBot.annotation.AdminCommand;
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
-import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
+import com.github.Naroru.JavaRushTelegramBot.dto.StatDto;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
-import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
+import com.github.Naroru.JavaRushTelegramBot.service.StatiscticService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @AdminCommand
 public class StatCommand implements Command {
 
-    private final SendMessageService sendMessageService;
-    private final TelegramUserService  telegramUserService;
-    public final static String STAT_MESSAGE = "Javarush Telegram Bot использует %s человек.";
+   private final SendMessageService sendMessageService;
+   private final StatiscticService statiscticService;
 
-    public StatCommand(SendMessageService sendMessageService, TelegramUserService telegramUserService) {
+
+    public final static String STAT_MESSAGE =
+            """
+                    Javarush Telegram Bot использует %d активных пользователей
+                    Неактивных пользователей %d человек,
+                    Среднее количество подписок у пользователя %s
+
+                    Детализация по группам:\
+                    %s""";
+
+    public StatCommand(SendMessageService sendMessageService, StatiscticService statiscticService) {
         this.sendMessageService = sendMessageService;
-        this.telegramUserService = telegramUserService;
+        this.statiscticService = statiscticService;
     }
 
 
     @Override
     public void execute(Update update) {
 
-        int activeUserCount = telegramUserService.retrieveAllActiveUsers().size();
+        StatDto statistic = statiscticService.getStatisctic();
 
-        sendMessageService.sendMessage(update.getMessage().getChatId().toString(), String.format(STAT_MESSAGE, activeUserCount));
+        String message = String.format(STAT_MESSAGE,
+                statistic.getActiveUsers(),
+                statistic.getInactiveUsers(),
+                statistic.getAverageGroupCountByUser(),
+                getGroupStatInfo(statistic));
+
+        sendMessageService.sendMessage(update.getMessage().getChatId().toString(), message);
 
     }
 
+    private String getGroupStatInfo(StatDto statistic)
+    {
+        return statistic.getGroupStat().stream()
+                .map(stat -> String.format("%s, ID = %d: %d подписчиков \n", stat.title(), stat.id(), stat.activeUserNumber()))
+                .collect(Collectors.joining());
+    }
 }

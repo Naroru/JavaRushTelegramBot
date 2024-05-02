@@ -6,6 +6,7 @@ import com.github.Naroru.JavaRushTelegramBot.command.CommandName;
 import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageServiceImp;
+import com.github.Naroru.JavaRushTelegramBot.service.StatiscticService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -29,6 +30,7 @@ public class JavarushBot extends TelegramLongPollingBot {
                        TelegramUserService telegramUserService,
                        JavaRushGroupClient javaRushGroupClient,
                        GroupSubsciptionService groupSubsciptionService,
+                       StatiscticService statiscticService,
                        @Value("#{'${bot.admins}'.split(',')}") List<String> admins) {
 
         super(botToken);
@@ -37,6 +39,7 @@ public class JavarushBot extends TelegramLongPollingBot {
                 telegramUserService,
                 javaRushGroupClient,
                 groupSubsciptionService,
+                statiscticService,
                 admins);
 
     }

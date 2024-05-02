@@ -4,6 +4,7 @@ import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand
 import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
+import com.github.Naroru.JavaRushTelegramBot.service.StatiscticService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,12 +34,15 @@ class CommandContainerTest {
     @Mock
     private GroupSubsciptionService groupSubsciptionService;
 
+    @Mock
+    private StatiscticService statiscticService;
+
     private CommandContainer commandContainer;
 
     @BeforeEach
     public void init()
     {
-        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient,groupSubsciptionService, List.of("username"));
+        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient,groupSubsciptionService,statiscticService, List.of("username"));
     }
 
     @Test
