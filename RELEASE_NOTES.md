@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.8.0-SNAPSHOT
+*  JRTB-10: Extended bot statistic for an admin
+
 ## 0.7.0-SNAPSHOT
 *  JRTB-9: Added an option to activate bot
 *  JRTB-8: Added an option  to set inactive using bot

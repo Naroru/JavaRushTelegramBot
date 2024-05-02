@@ -22,6 +22,7 @@ public class HelpCommand implements Command {
                     %s - получить статистику по активным пользователям
 
                     %s - получить помощь в работе со мной
+          
                     """,
 
             START.getCommandName(),

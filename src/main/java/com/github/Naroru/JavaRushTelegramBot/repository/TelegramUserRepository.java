@@ -11,4 +11,5 @@ public interface TelegramUserRepository extends CrudRepository<TelegramUser, Str
 
     List<TelegramUser> findAllByActiveTrue();
 
+    List<TelegramUser> findAllByActiveFalse();
 }

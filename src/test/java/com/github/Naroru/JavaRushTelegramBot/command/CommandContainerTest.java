@@ -4,6 +4,7 @@ import com.github.Naroru.JavaRushTelegramBot.command.basicCommands.UnknowCommand
 import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
+import com.github.Naroru.JavaRushTelegramBot.service.StatiscticService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,12 +34,15 @@ class CommandContainerTest {
     @Mock
     private GroupSubsciptionService groupSubsciptionService;
 
+    @Mock
+    private StatiscticService statiscticService;
+
     private CommandContainer commandContainer;
 
     @BeforeEach
     public void init()
     {
-        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient,groupSubsciptionService);
+        commandContainer = new CommandContainer(sendMessageService, telegramUserService, javaRushGroupClient,groupSubsciptionService,statiscticService, List.of("username"));
     }
 
     @Test
@@ -49,7 +54,7 @@ class CommandContainerTest {
                         value ->
                         {
                             String commandName = value.getCommandName();
-                            Command command = commandContainer.getCommand(commandName);
+                            Command command = commandContainer.getCommand(commandName,"username");
                             assertNotEquals(UnknowCommand.class, command.getClass());
                         }
                 );
@@ -62,7 +67,7 @@ class CommandContainerTest {
         String commandName = "dfgdfg";
 
         //when
-        Command command = commandContainer.getCommand(commandName);
+        Command command = commandContainer.getCommand(commandName, "username");
 
         //then
 
