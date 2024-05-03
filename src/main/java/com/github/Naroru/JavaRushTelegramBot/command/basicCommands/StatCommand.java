@@ -42,7 +42,7 @@ public class StatCommand implements Command {
                 statistic.getAverageGroupCountByUser(),
                 getGroupStatInfo(statistic));
 
-        sendMessageService.sendMessage(update.getMessage().getChatId().toString(), message);
+        sendMessageService.sendMessage(update.getMessage().getChatId(), message);
 
     }
 

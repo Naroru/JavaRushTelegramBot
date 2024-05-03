@@ -23,7 +23,7 @@ public class AdminHelpCommand implements Command {
 
 
 
-        sendMessageService.sendMessage(update.getMessage().getChatId().toString(), ADMIN_HELP_MESSAGE);
+        sendMessageService.sendMessage(update.getMessage().getChatId(), ADMIN_HELP_MESSAGE);
 
     }
 }

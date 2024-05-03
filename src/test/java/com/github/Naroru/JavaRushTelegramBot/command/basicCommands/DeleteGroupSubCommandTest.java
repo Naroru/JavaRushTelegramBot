@@ -18,7 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @DisplayName("unit-testing command DeleteGroupSubCommand")
@@ -39,9 +40,9 @@ class DeleteGroupSubCommandTest {
         telegramUserService = Mockito.mock(TelegramUserService.class);
 
         user = new TelegramUser();
-        user.setChatId(CHAT_ID.toString());
+        user.setChatId(CHAT_ID);
 
-        when(telegramUserService.findByChatId(CHAT_ID.toString())).thenReturn(Optional.ofNullable(user));
+        when(telegramUserService.findByChatId(CHAT_ID)).thenReturn(Optional.ofNullable(user));
 
         command = new DeleteGroupSubCommand(sendMessageService,telegramUserService);
 
@@ -58,7 +59,7 @@ class DeleteGroupSubCommandTest {
 
         user.setGroups(new ArrayList<>());
 
-        when(telegramUserService.findByChatId(CHAT_ID.toString()))
+        when(telegramUserService.findByChatId(CHAT_ID))
                 .thenReturn(Optional.of(user));
 
         String expectedMessage = String.format("""
@@ -72,7 +73,7 @@ class DeleteGroupSubCommandTest {
         command.execute(update);
 
         //then
-        verify(sendMessageService,only()).sendMessage(CHAT_ID.toString(),expectedMessage);
+        verify(sendMessageService,only()).sendMessage(CHAT_ID,expectedMessage);
 
     }
 
@@ -92,7 +93,7 @@ class DeleteGroupSubCommandTest {
         g1.setId(2);
         user.setGroups(List.of(g1, g2));
 
-        when(telegramUserService.findByChatId(CHAT_ID.toString()))
+        when(telegramUserService.findByChatId(CHAT_ID))
                 .thenReturn(Optional.of(user));
 
         String allGroups = user.getGroups().stream()
@@ -110,7 +111,7 @@ class DeleteGroupSubCommandTest {
         command.execute(update);
 
         //then
-        verify(sendMessageService,only()).sendMessage(CHAT_ID.toString(),expectedMessage);
+        verify(sendMessageService,only()).sendMessage(CHAT_ID,expectedMessage);
 
     }
 
@@ -126,7 +127,7 @@ class DeleteGroupSubCommandTest {
         command.execute(update);
 
         //then
-        verify(sendMessageService,only()).sendMessage(CHAT_ID.toString(), "Указанный ID группы некорректный. ID может содержать только цифры");
+        verify(sendMessageService,only()).sendMessage(CHAT_ID, "Указанный ID группы некорректный. ID может содержать только цифры");
     }
 
     @Test
@@ -154,7 +155,7 @@ class DeleteGroupSubCommandTest {
         command.execute(update);
 
         //then
-        verify(sendMessageService, only()).sendMessage(CHAT_ID.toString(), expectedMessage);
+        verify(sendMessageService, only()).sendMessage(CHAT_ID, expectedMessage);
 
     }
 
@@ -181,7 +182,7 @@ class DeleteGroupSubCommandTest {
         command.execute(update);
 
         //then
-        verify(sendMessageService,only()).sendMessage(CHAT_ID.toString(), "Подписка удалена!");
+        verify(sendMessageService,only()).sendMessage(CHAT_ID, "Подписка удалена!");
         verify(telegramUserService,atMostOnce()).save(user);
 
         assertFalse(user.getGroups().stream()

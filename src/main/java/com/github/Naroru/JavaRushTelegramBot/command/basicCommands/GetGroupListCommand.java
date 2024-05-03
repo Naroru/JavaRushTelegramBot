@@ -24,7 +24,7 @@ public class GetGroupListCommand implements Command {
     @Override
     public void execute(Update update) {
 
-        String chatID = update.getMessage().getChatId().toString();
+        Long chatID = update.getMessage().getChatId();
         //todo make handling exception
         TelegramUser user = telegramUserService.findByChatId(chatID)
                 .orElseThrow(NotFoundException::new);

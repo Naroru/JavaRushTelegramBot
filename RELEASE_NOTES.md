@@ -1,12 +1,21 @@
 # Release Notes
 
+## 1.0.0-SNAPSHOT
+Implemented all the logic, planned up to MVP:
+*   User can subscribe on group of posts
+*   User can view list of group subscriptions on which user subscribes
+*   User can unsubscribe from group of posts
+*   User can set an inactive bot and do not receive notifications
+*   User can restart getting notifications
+*   Admin has ability to see bot statistics
+* 
 ## 0.8.0-SNAPSHOT
 *  JRTB-10: Extended bot statistic for an admin
 
 ## 0.7.0-SNAPSHOT
 *  JRTB-9: Added an option to activate bot
 *  JRTB-8: Added an option  to set inactive using bot
-*  JRTB-4: Added notifications about new articles
+*  JRTB-4: Added notifications about new posts
 * 
 ## 0.6.0-SNAPSHOT
 *   JRTB-7: added command to delete subscription

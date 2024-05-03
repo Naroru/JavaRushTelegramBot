@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 @DisplayName("unit tests for StatisticServiceImp")
@@ -40,12 +40,12 @@ class StatisticServiceImplTest {
     public void shouldreturnProperStatDto()
     {
         //given
-        Mockito.when(userService.retrieveAllInactiveUsers()).thenReturn(singletonList(new TelegramUser()));
+        Mockito.when(userService.findAllInactiveUsers()).thenReturn(singletonList(new TelegramUser()));
 
         TelegramUser activeUser = new TelegramUser();
         activeUser.setGroups(singletonList(new GroupSubscribtion()));
 
-        Mockito.when(userService.retrieveAllActiveUsers()).thenReturn(singletonList(activeUser));
+        Mockito.when(userService.findAllActiveUsers()).thenReturn(singletonList(activeUser));
 
         GroupSubscribtion groupSub = new GroupSubscribtion();
         groupSub.setTitle("group");

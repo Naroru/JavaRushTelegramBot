@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FindNewArticleServiceImp implements FindNewArtcileService {
+public class FindNewPostServiceImp implements FindNewArtcileService {
 
     private final GroupSubsciptionService groupSubsciptionService;
     private final JavaRushPostClient postClient;
@@ -18,33 +18,33 @@ public class FindNewArticleServiceImp implements FindNewArtcileService {
 
     public static final String JAVARUSH_WEB_POST_FORMAT = "https://javarush.com/groups/posts/%s";
 
-    public FindNewArticleServiceImp(GroupSubsciptionService groupSubsciptionService, JavaRushPostClient postClient, SendMessageService sendMessageService) {
+    public FindNewPostServiceImp(GroupSubsciptionService groupSubsciptionService, JavaRushPostClient postClient, SendMessageService sendMessageService) {
         this.groupSubsciptionService = groupSubsciptionService;
         this.postClient = postClient;
         this.sendMessageService = sendMessageService;
     }
 
     @Override
-    public void findNewArticle() {
+    public void findNewPost() {
 
         groupSubsciptionService.findAll().forEach(group -> {
 
-                    List<PostInfo> articles = postClient.findNewPosts(group.getId(), group.getLastArticleID());
+                    List<PostInfo> posts = postClient.findNewPosts(group.getId(), group.getLastPostID());
 
-                    sendMessagesAboutNewArticles(group, articles);
-                    setNewArticleID(group, articles);
+                    sendMessagesAboutNewposts(group, posts);
+                    setNewPostID(group, posts);
 
                 });
 
     }
 
-    private void setNewArticleID(GroupSubscribtion group, List<PostInfo> articles) {
+    private void setNewPostID(GroupSubscribtion group, List<PostInfo> posts) {
 
-        articles.stream()
+        posts.stream()
                 .mapToInt(PostInfo::getId)
                 .max()
-                .ifPresent(articleID -> {
-                    group.setLastArticleID(articleID);
+                .ifPresent(PostID -> {
+                    group.setLastPostID(PostID);
                     groupSubsciptionService.save(group);
                 });
 
@@ -52,17 +52,17 @@ public class FindNewArticleServiceImp implements FindNewArtcileService {
 
     }
 
-    private void sendMessagesAboutNewArticles(GroupSubscribtion group, List<PostInfo> articles) {
+    private void sendMessagesAboutNewposts(GroupSubscribtion group, List<PostInfo> posts) {
 
         List<TelegramUser> activeUsers = group.getUsers().stream()
                 .filter(TelegramUser::isActive).toList();
 
-        articles.forEach(article -> {
+        posts.forEach(Post -> {
 
             String message = String.format("В группе %s вышла новая статья: %s.\n\n Ссылка %s\n",
                     group.getTitle(),
-                    article.getTitle(),
-                    getURL(article.getKey()));
+                    Post.getTitle(),
+                    getURL(Post.getKey()));
 
             activeUsers.forEach(user -> sendMessageService.sendMessage(user.getChatId(), message));
         });

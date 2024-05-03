@@ -10,12 +10,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.List;
 import java.util.Optional;
 
-import static java.lang.Integer.parseInt;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
-import java.util.List;
 
 @ActiveProfiles("test")
 @DataJpaTest
@@ -40,7 +40,7 @@ class GroupSubscriptionRepositoryIT {
         List<TelegramUser> users = groupSubscribtion.get().getUsers();
 
         for (int i = 0; i < 5; i++) {
-            assertEquals(i + 1,parseInt(users.get(i).getChatId() ));
+            assertEquals(Long.valueOf(i + 1), users.get(i).getChatId());
             assertTrue(users.get(i).isActive());
         }
         
