@@ -60,7 +60,7 @@ class StatCommandTest {
         //when
         statCommand.execute(preparedUpdate(chatId,STAT_MESSAGE));
 
-        verify(sendMessageService).sendMessage(chatId.toString(),excpectedMessage);
+        verify(sendMessageService).sendMessage(chatId,excpectedMessage);
     }
 
 

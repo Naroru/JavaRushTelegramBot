@@ -1,7 +1,6 @@
 package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
 import com.github.Naroru.JavaRushTelegramBot.command.Command;
-import com.github.Naroru.JavaRushTelegramBot.repository.entity.TelegramUser;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import com.github.Naroru.JavaRushTelegramBot.service.TelegramUserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -21,7 +20,7 @@ public class StopCommand implements Command {
     @Override
     public void execute(Update update) {
 
-        String chatID = update.getMessage().getChatId().toString();
+        Long chatID = update.getMessage().getChatId();
 
         telegramUserService.findByChatId(chatID)
                         .ifPresent(

@@ -22,7 +22,7 @@ public class GroupSubsciptionServiceImpl implements GroupSubsciptionService {
 
 
     @Override
-    public GroupSubscribtion save(String chatId, GroupDiscussionInfo info) {
+    public GroupSubscribtion save(Long chatId, GroupDiscussionInfo info) {
         //не уверен что здесь нужны какие то проверки, что пользователь существует или что
         //если группа существует тогда обновляем
         //TODO add exception handling
@@ -36,7 +36,7 @@ public class GroupSubsciptionServiceImpl implements GroupSubsciptionService {
             groupSubscribtion = groupFromDB.get();
 
             Optional<TelegramUser> first = groupSubscribtion.getUsers().stream()
-                    .filter(user1 -> user1.getChatId().equalsIgnoreCase(chatId))
+                    .filter(user1 -> user1.getChatId().equals(chatId))
                     .findFirst();
 
             if (first.isEmpty())

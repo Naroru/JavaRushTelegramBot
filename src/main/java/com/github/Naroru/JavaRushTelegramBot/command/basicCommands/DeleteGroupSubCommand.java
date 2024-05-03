@@ -29,7 +29,7 @@ public class DeleteGroupSubCommand implements Command {
     public void execute(Update update) {
 
         String commandMessage = update.getMessage().getText();
-        String chatID = update.getMessage().getChatId().toString();
+        Long chatID = update.getMessage().getChatId();
         TelegramUser user = telegramUserService.findByChatId(chatID).orElseThrow(NotFoundException::new);
 
         if (commandMessage.equalsIgnoreCase(CommandName.DELETE_GROUP_SUB.getCommandName())) {

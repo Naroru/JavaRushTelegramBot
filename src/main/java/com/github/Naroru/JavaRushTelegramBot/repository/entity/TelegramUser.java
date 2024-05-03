@@ -1,7 +1,10 @@
 package com.github.Naroru.JavaRushTelegramBot.repository.entity;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ public class TelegramUser {
 
     @Id
     @Column(name = "chat_id")
-    private String chatId;
+    private Long chatId;
 
     @Column(name = "active")
     private boolean active;

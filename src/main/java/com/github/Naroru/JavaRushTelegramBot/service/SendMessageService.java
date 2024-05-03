@@ -2,6 +2,6 @@ package com.github.Naroru.JavaRushTelegramBot.service;
 
 public interface SendMessageService {
 
-    void sendMessage(String chatID, String message);
+    void sendMessage(Long chatID, String message);
 
 }

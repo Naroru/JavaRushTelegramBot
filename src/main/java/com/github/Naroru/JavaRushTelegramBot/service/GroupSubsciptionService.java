@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface GroupSubsciptionService {
 
-    GroupSubscribtion save(String chatId, GroupDiscussionInfo info );
+    GroupSubscribtion save(Long chatId, GroupDiscussionInfo info );
 
     GroupSubscribtion save(GroupSubscribtion groupSubscribtion);
 

@@ -1,10 +1,10 @@
 package com.github.Naroru.JavaRushTelegramBot.command.basicCommands;
 
-import com.github.Naroru.JavaRushTelegramBot.command.Command;
-import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
 import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupDiscussionInfo;
 import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupInfo;
 import com.github.Naroru.JavaRushTelegramBot.clients.dto.GroupRequestArgs;
+import com.github.Naroru.JavaRushTelegramBot.clients.groupClient.JavaRushGroupClient;
+import com.github.Naroru.JavaRushTelegramBot.command.Command;
 import com.github.Naroru.JavaRushTelegramBot.service.GroupSubsciptionService;
 import com.github.Naroru.JavaRushTelegramBot.service.SendMessageService;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -38,7 +38,7 @@ public class AddGroupSubCommand implements Command {
     public void execute(Update update) {
 
         String message = update.getMessage().getText();
-        String chatID = update.getMessage().getChatId().toString();
+        Long chatID = update.getMessage().getChatId();
 
         if (message.equalsIgnoreCase(ADD_GROUP_SUB.getCommandName())) {
             sendAllGroupsWithID(chatID);
@@ -61,18 +61,18 @@ public class AddGroupSubCommand implements Command {
     }
 
 
-    private void sendMessageGroupNotFound(String chatID) {
+    private void sendMessageGroupNotFound(Long chatID) {
 
         sendMessageService.sendMessage(chatID, GROUP_NOT_FOUND_MESSAGE);
     }
 
-    private void makeSubscription(GroupDiscussionInfo groupDiscussionInfo, String chatID) {
+    private void makeSubscription(GroupDiscussionInfo groupDiscussionInfo, Long chatID) {
 
         groupSubsciptionService.save(chatID, groupDiscussionInfo);
         sendMessageService.sendMessage(chatID, "Подписка оформлена!");
     }
 
-    private void sendAllGroupsWithID(String chatID) {
+    private void sendAllGroupsWithID(Long chatID) {
 
         List<GroupInfo> groups = javaRushGroupClient.getGroupList(GroupRequestArgs.builder().build());
 
@@ -94,7 +94,7 @@ public class AddGroupSubCommand implements Command {
         sendMessageService.sendMessage(chatID, messageText);
     }
 
-    private void sendMessageIDIsNotCorrect(String groupID, String chatID) {
+    private void sendMessageIDIsNotCorrect(String groupID, Long chatID) {
         //todo возможно подобные сообщения стоит вынести в публичные статические функции, чтобы не дублировать текст в тестах
         String message = String.format("Указанный ID = %s не является ID существующей группы. Используйте команду " +
                 "%s для получения списка существующих ID", groupID, ADD_GROUP_SUB.getCommandName());

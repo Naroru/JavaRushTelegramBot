@@ -10,24 +10,24 @@ import java.time.ZoneOffset;
 
 @Component
 @Slf4j
-public class FindNewArticleJob {
+public class FindNewPostJob {
 
-    private final FindNewArtcileService findNewArtcileService;
+    private final FindNewArtcileService findNewPostService;
 
-    public FindNewArticleJob(FindNewArtcileService findNewArtcileService) {
-        this.findNewArtcileService = findNewArtcileService;
+    public FindNewPostJob(FindNewArtcileService findNewArtcileService) {
+        this.findNewPostService = findNewArtcileService;
     }
 
-    @Scheduled(fixedRateString = "${bot.recountNewArticleFixedRate}")
-    public void findNewArticle()
+    @Scheduled(fixedRateString = "${bot.recountNewPostsFixedRate}")
+    public void findNewPost()
     {
         LocalDateTime start = LocalDateTime.now();
-        log.info("Find new article job started.");
+        log.info("Find new post job started.");
 
-        findNewArtcileService.findNewArticle();
+        findNewPostService.findNewPost();
 
         LocalDateTime end = LocalDateTime.now();
-        log.info(String.format("Find new article job finished during %d",
+        log.info(String.format("Find new post job finished during %d",
                 end.toEpochSecond(ZoneOffset.UTC) - start.toEpochSecond(ZoneOffset.UTC)));
 
     }

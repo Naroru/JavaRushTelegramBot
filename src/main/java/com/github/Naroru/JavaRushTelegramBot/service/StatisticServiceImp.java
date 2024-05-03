@@ -24,8 +24,8 @@ public class StatisticServiceImp implements StatiscticService{
     @Override
     public StatDto getStatisctic() {
 
-        List<TelegramUser> activeUsers = userService.retrieveAllActiveUsers();
-        List<TelegramUser> inactiveUsers = userService.retrieveAllInactiveUsers();
+        List<TelegramUser> activeUsers = userService.findAllActiveUsers();
+        List<TelegramUser> inactiveUsers = userService.findAllInactiveUsers();
 
         List<GroupStatDto> groupStat = subsciptionService.findAll()
                 .stream()

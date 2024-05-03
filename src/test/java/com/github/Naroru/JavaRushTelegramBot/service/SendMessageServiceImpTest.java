@@ -1,22 +1,17 @@
 package com.github.Naroru.JavaRushTelegramBot.service;
 
 import com.github.Naroru.JavaRushTelegramBot.bot.JavarushBot;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
 
 @DisplayName("Unit-level testing for SendMessageService")
 @ExtendWith(MockitoExtension.class)
@@ -35,7 +30,7 @@ class SendMessageServiceImpTest {
     @Test
     public void sendMessageShouldBeCorrect() throws TelegramApiException {
         //given
-        String chatID = "123";
+        Long chatID = 123L;
         String message = "test message";
 
         SendMessage sendMessage = new SendMessage();

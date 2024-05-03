@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
-import javax.validation.constraints.AssertTrue;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +40,7 @@ class TelegramUserRepositoryIT {
     public void shouldProperlySaveTelegramUser() {
         //given
         TelegramUser telegramUser = new TelegramUser();
-        telegramUser.setChatId("1234567890");
+        telegramUser.setChatId(12345L);
         telegramUser.setActive(false);
         telegramUserRepository.save(telegramUser);
 
@@ -61,7 +60,7 @@ class TelegramUserRepositoryIT {
 
 
         //when
-        Optional<TelegramUser> userFromDB = telegramUserRepository.findById("1");
+        Optional<TelegramUser> userFromDB = telegramUserRepository.findById(1L);
 
         //then
         Assertions.assertTrue(userFromDB.isPresent());
@@ -74,7 +73,7 @@ class TelegramUserRepositoryIT {
             GroupSubscribtion groupSub = groupSubs.get(i);
 
             Assertions.assertEquals(i+1, groupSub.getId());
-            Assertions.assertEquals(i+1, groupSub.getLastArticleID());
+            Assertions.assertEquals(i+1, groupSub.getLastPostID());
             Assertions.assertEquals("g"+(i+1), groupSub.getTitle());
         }
 

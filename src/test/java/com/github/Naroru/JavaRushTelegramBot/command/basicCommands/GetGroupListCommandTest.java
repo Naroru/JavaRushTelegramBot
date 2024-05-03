@@ -36,7 +36,7 @@ class GetGroupListCommandTest {
                 new GroupSubscribtion(2, "g2", 0, null)
         );
 
-        TelegramUser user = new TelegramUser("1", true, groupsSub);
+        TelegramUser user = new TelegramUser(1L, true, groupsSub);
         when(telegramUserService.findByChatId((user.getChatId()))).thenReturn(Optional.of(user));
 
         when(update.getMessage()).thenReturn(message);

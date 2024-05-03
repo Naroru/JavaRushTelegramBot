@@ -32,7 +32,7 @@ class GroupSubsciptionServiceImplTest {
 
     private TelegramUser newUser;
 
-    private final static String CHAT_ID = "1";
+    private final static Long CHAT_ID = 1L;
 
     @BeforeEach
     public void init() {
@@ -78,7 +78,7 @@ class GroupSubsciptionServiceImplTest {
         //given
         TelegramUser existingUser = new TelegramUser();
         existingUser.setActive(true);
-        existingUser.setChatId("2");
+        existingUser.setChatId(2L);
 
         GroupSubscribtion groupFromDB = new GroupSubscribtion();
         groupFromDB.addUser(existingUser);
