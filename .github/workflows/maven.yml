@@ -15,7 +15,7 @@ jobs:
   build:
     #  какое то разрешение
     permissions: write-all
-    #  указываем на чем она будет запускаться ( можно виндоус еше и т д. Это ресурсы гитхаба)
+    #  указываем на чем она будет запускаться (можно виндоус еше и т д. Это ресурсы гитхаба)
     runs-on: ubuntu-latest
 
     services:
@@ -25,9 +25,9 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          POSTGRES_USER: dev_jrtb_user #${{ vars.BOT_DB_NAME }}
+          POSTGRES_PASSWORD: dev_jrtb_pass #${{ vars.BOT_DB_PASSWORD }}
+          POSTGRES_DB: dev_jrtb_db #  #${{ vars.POSTGRES_DB }}
 
         # Set health checks to wait until postgres has started
         options: >-
@@ -61,7 +61,7 @@ jobs:
           POSTGRES_PORT: 5432
         #  вместо действия можно указать конкретнкую команду, которая выполнится. Здесь мы указываем, чтобы выполнилась команда mvn -B package --file pom.xml
         #  выполнится она на ubuntu-latest, которую мы указали ранее  для Job
-        run: mvn -B package --file pom.xml
+        run: mvn -Dspring.profiles.active=test  -B package --file pom.xml
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
