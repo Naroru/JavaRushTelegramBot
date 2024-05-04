@@ -11,7 +11,7 @@ on:
 #  указываем "работы" (группировки действий), которые будут выполняться в рамках текущего workflow
 # по умолчанию выполняются параллельно друг другу. Можно настроить, чтобы последовательно
 jobs:
-  #  имя работы
+  #  имя работы - build
   build:
     #  какое то разрешение
     permissions: write-all
@@ -26,9 +26,9 @@ jobs:
         # Provide the password for postgres
         # на самом деле тут можно прописать значения из тестовых проперти напрямую, а не использовать переменные гитхаба
         env:
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          POSTGRES_USER: dev_jrtb_user
+          POSTGRES_PASSWORD: dev_jrtb_pass
+          POSTGRES_DB: jdbc:postgresql://postgres:5432/dev_jrtb_db #${{ vars.POSTGRES_DB }}
 
         # Set health checks to wait until postgres has started
         options: >-
@@ -41,11 +41,12 @@ jobs:
           - 5432:5432
     #  указываем конкретные шаги в рамках текущей работы, которые надо выполнить
     steps:
-      #  имя шага
+      #  имя шага.  В этом шаге будет переключаться на ветку master
       - name: Checkout
       #  указываем действие. Действие - это сразу группа команд. Действия есть куча предопределенных, их можно брать тут https://github.com/marketplace?type=actions
         uses: actions/checkout@v3
 
+      # устанавливаем на удаленную машину JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         #  для текущего действия надо задать доп параметры
