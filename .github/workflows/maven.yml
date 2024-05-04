@@ -56,8 +56,6 @@ jobs:
         env:
           BOT_NAME: ${{ secrets.BOT_NAME }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-         # BOT_DB_NAME: ${{ vars.BOT_DB_NAME }}
-         # BOT_DB_PASSWORD: ${{ vars.BOT_DB_PASSWORD }}
           POSTGRES_HOST: localhost
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
