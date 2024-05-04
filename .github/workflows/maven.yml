@@ -63,7 +63,7 @@ jobs:
           POSTGRES_PORT: 5432
         #  вместо действия можно указать конкретнкую команду, которая выполнится. Здесь мы указываем, чтобы выполнилась команда mvn -B package --file pom.xml
         #  выполнится она на ubuntu-latest, которую мы указали ранее  для Job
-        run: mvn -B package --file pom.xml
+        run: mvn -Dspring.profiles.active=test  -B package --file pom.xml
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
