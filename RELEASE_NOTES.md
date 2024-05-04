@@ -1,4 +1,7 @@
 # Release Notes
+## 1.0.1-SNAPSHOT
+*   Fix bug that there were incorrect properties in application.properties
+*   CI became work with test profile
 
 ## 1.0.0-SNAPSHOT
 Implemented all the logic, planned up to MVP:
